@@ -644,14 +644,14 @@ function renderEstadisticasTabFromBackend(facturasData) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Media (np.mean)</td><td>${formatCurrency(stats.mean)}</td></tr>
-                    <tr><td>Mediana (np.median)</td><td>${formatCurrency(stats.median)}</td></tr>
-                    <tr><td>Desviación Estándar (np.std)</td><td>${formatCurrency(stats.std)}</td></tr>
-                    <tr><td>Mínimo (np.min)</td><td>${formatCurrency(stats.min)}</td></tr>
-                    <tr><td>Máximo (np.max)</td><td>${formatCurrency(stats.max)}</td></tr>
-                    <tr><td>Q1 - Percentil 25 (np.percentile)</td><td>${formatCurrency(stats.q1)}</td></tr>
-                    <tr><td>Q3 - Percentil 75 (np.percentile)</td><td>${formatCurrency(stats.q3)}</td></tr>
-                    <tr><td>Rango Intercuartílico (IQR)</td><td>${formatCurrency(iqr)}</td></tr>
+                    <tr><td>Media <strong>(np.mean)</strong></td><td>${formatCurrency(stats.mean)}</td></tr>
+                    <tr><td>Mediana <strong>(np.median)</strong></td><td>${formatCurrency(stats.median)}</td></tr>
+                    <tr><td>Desviación Estándar <strong>(np.std)</strong></td><td>${formatCurrency(stats.std)}</td></tr>
+                    <tr><td>Mínimo <strong>(np.min)</strong></td><td>${formatCurrency(stats.min)}</td></tr>
+                    <tr><td>Máximo <strong>(np.max)</strong></td><td>${formatCurrency(stats.max)}</td></tr>
+                    <tr><td>Q1 - Percentil 25 <strong>(np.percentile)</strong></td><td>${formatCurrency(stats.q1)}</td></tr>
+                    <tr><td>Q3 - Percentil 75 <strong>(np.percentile)</strong></td><td>${formatCurrency(stats.q3)}</td></tr>
+                    <tr><td>Rango Intercuartílico <strong>(IQR)</strong></td><td>${formatCurrency(iqr)}</td></tr>
                     <tr><td>Coeficiente de Variación</td><td>${stats.cv.toFixed(2)}%</td></tr>
                     <tr><td>Total de Observaciones</td><td>${facturasData.total.toLocaleString()}</td></tr>
                 </tbody>
