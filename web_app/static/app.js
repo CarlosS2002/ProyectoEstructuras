@@ -658,6 +658,243 @@ function renderEstadisticasTabFromBackend(facturasData) {
             </table>
         </div>
     `;
+    
+    // Generar gráficas adicionales
+    renderEstadisticasCharts(facturasData);
+}
+
+function renderEstadisticasCharts(facturasData) {
+    if (!facturasData.montos || facturasData.montos.length === 0) return;
+    
+    const stats = facturasData.estadisticas;
+    const montos = facturasData.montos;
+    const iqr = stats.q3 - stats.q1;
+    
+    // 1. Histograma mejorado
+    const ctxHist = document.getElementById('histogramaChart');
+    const bins = createHistogramBins(montos, 15);
+    
+    if (charts.histograma) charts.histograma.destroy();
+    charts.histograma = new Chart(ctxHist, {
+        type: 'bar',
+        data: {
+            labels: bins.labels,
+            datasets: [{
+                label: 'Frecuencia',
+                data: bins.counts,
+                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Cantidad: ' + context.parsed.y;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Frecuencia' }
+                },
+                x: {
+                    title: { display: true, text: 'Rango de Montos' },
+                    ticks: { maxRotation: 45, minRotation: 45 }
+                }
+            }
+        }
+    });
+    
+    // 2. Box Plot (simulado con bar chart horizontal)
+    const ctxBox = document.getElementById('boxPlotChart');
+    if (charts.boxPlot) charts.boxPlot.destroy();
+    
+    const lowerWhisker = Math.max(stats.min, stats.q1 - 1.5 * iqr);
+    const upperWhisker = Math.min(stats.max, stats.q3 + 1.5 * iqr);
+    
+    charts.boxPlot = new Chart(ctxBox, {
+        type: 'bar',
+        data: {
+            labels: ['Box Plot'],
+            datasets: [
+                {
+                    label: 'Mínimo',
+                    data: [stats.min],
+                    backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                    borderColor: 'rgba(239, 68, 68, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Q1 (25%)',
+                    data: [stats.q1],
+                    backgroundColor: 'rgba(245, 158, 11, 0.7)',
+                    borderColor: 'rgba(245, 158, 11, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Mediana',
+                    data: [stats.median],
+                    backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                    borderColor: 'rgba(16, 185, 129, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Q3 (75%)',
+                    data: [stats.q3],
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Máximo',
+                    data: [stats.max],
+                    backgroundColor: 'rgba(124, 58, 237, 0.7)',
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: true, position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + formatCurrency(context.parsed.x);
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Valor' },
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + (value / 1000).toFixed(0) + 'K';
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // 3. Gráfica de Cuartiles
+    const ctxQuartiles = document.getElementById('quartilesChart');
+    if (charts.quartiles) charts.quartiles.destroy();
+    
+    const p10 = percentile(montos.slice().sort((a, b) => a - b), 10);
+    const p50 = stats.median;
+    const p90 = percentile(montos.slice().sort((a, b) => a - b), 90);
+    
+    charts.quartiles = new Chart(ctxQuartiles, {
+        type: 'line',
+        data: {
+            labels: ['Min', 'P10', 'Q1', 'Mediana', 'Media', 'Q3', 'P90', 'Max'],
+            datasets: [{
+                label: 'Valores',
+                data: [stats.min, p10, stats.q1, stats.median, stats.mean, stats.q3, p90, stats.max],
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 6,
+                pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + formatCurrency(context.parsed.y);
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Valor ($)' },
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + (value / 1000).toFixed(0) + 'K';
+                        }
+                    }
+                },
+                x: {
+                    title: { display: true, text: 'Percentiles' }
+                }
+            }
+        }
+    });
+    
+    // 4. Outliers
+    const ctxOutliers = document.getElementById('outliersChart');
+    if (charts.outliers) charts.outliers.destroy();
+    
+    const lowerBound = stats.q1 - 1.5 * iqr;
+    const upperBound = stats.q3 + 1.5 * iqr;
+    const outliers = montos.filter(m => m < lowerBound || m > upperBound);
+    const normalValues = montos.filter(m => m >= lowerBound && m <= upperBound);
+    
+    charts.outliers = new Chart(ctxOutliers, {
+        type: 'bar',
+        data: {
+            labels: ['Valores Normales', 'Outliers'],
+            datasets: [{
+                label: 'Cantidad',
+                data: [normalValues.length, outliers.length],
+                backgroundColor: [
+                    'rgba(16, 185, 129, 0.7)',
+                    'rgba(239, 68, 68, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(16, 185, 129, 1)',
+                    'rgba(239, 68, 68, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const percentage = ((context.parsed.y / montos.length) * 100).toFixed(1);
+                            return 'Cantidad: ' + context.parsed.y + ' (' + percentage + '%)';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Cantidad de Valores' }
+                }
+            }
+        }
+    });
 }
 
 // Funciones auxiliares
