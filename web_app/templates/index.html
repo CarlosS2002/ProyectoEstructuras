@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Facturación Médica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Análisis de Facturación Médica</h1>
+            <p class="subtitle">Carga tus archivos JSON de facturas y admisiones para análisis en tiempo real</p>
+        </header>
+
+        <div class="upload-section">
+            <div class="upload-card">
+                <h2>📁 Cargar Archivos JSON</h2>
+                <div class="upload-options">
+                    <div class="file-upload">
+                        <label for="facturasFile" class="file-label">
+                            <span>📄 Facturas JSON</span>
+                            <input type="file" id="facturasFile" accept=".json" />
+                        </label>
+                        <span id="facturasFileName" class="file-name">Sin archivo</span>
+                    </div>
+                    <div class="file-upload">
+                        <label for="admisionesFile" class="file-label">
+                            <span>📄 Admisiones JSON</span>
+                            <input type="file" id="admisionesFile" accept=".json" />
+                        </label>
+                        <span id="admisionesFileName" class="file-name">Sin archivo</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload-card">
+                <h2>📋 O Pegar JSON Directamente</h2>
+                <div class="json-paste">
+                    <div class="paste-group">
+                        <label for="facturasJson">JSON de Facturas:</label>
+                        <textarea id="facturasJson" placeholder='{"success": true, "datos": [...]}'></textarea>
+                    </div>
+                    <div class="paste-group">
+                        <label for="admisionesJson">JSON de Admisiones:</label>
+                        <textarea id="admisionesJson" placeholder='{"success": true, "datos": [...]}'></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button id="analyzeBtn" class="analyze-btn">🔍 Analizar Datos</button>
+            <div id="loadingIndicator" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Procesando datos...</p>
+            </div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="overview">📈 Resumen</button>
+                <button class="tab-btn" data-tab="facturas">💰 Facturas</button>
+                <button class="tab-btn" data-tab="admisiones">🏥 Admisiones</button>
+                <button class="tab-btn" data-tab="prestaciones">💊 Prestaciones</button>
+                <button class="tab-btn" data-tab="estadisticas">📊 Estadísticas</button>
+            </div>
+
+            <div class="tab-content active" id="overview">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Episodios</h3>
+                        <p class="stat-value" id="totalEpisodios">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Facturas</h3>
+                        <p class="stat-value" id="totalFacturas">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Prestaciones</h3>
+                        <p class="stat-value" id="totalPrestaciones">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Monto Total</h3>
+                        <p class="stat-value" id="montoTotal">$0</p>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Episodios por Aseguradora</h3>
+                        <canvas id="aseguradoraChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Distribución de Montos</h3>
+                        <canvas id="montosChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="facturas">
+                <div class="data-section">
+                    <h3>Análisis de Facturas</h3>
+                    <div id="facturasAnalysis"></div>
+                    <div class="chart-card">
+                        <h3>Top 10 Facturas más Costosas</h3>
+                        <canvas id="topFacturasChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="admisiones">
+                <div class="data-section">
+                    <h3>Análisis de Admisiones</h3>
+                    <div id="admisionesAnalysis"></div>
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>Clase de Episodio</h3>
+                            <canvas id="claseEpisodioChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Estado de Factura</h3>
+                            <canvas id="estatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="prestaciones">
+                <div class="data-section">
+                    <h3>Análisis de Prestaciones</h3>
+                    <div id="prestacionesAnalysis"></div>
+                    <div class="chart-card">
+                        <h3>Prestaciones por Tipo</h3>
+                        <canvas id="prestacionesTipoChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="estadisticas">
+                <div class="data-section">
+                    <h3>Estadísticas Descriptivas</h3>
+                    <div id="estadisticasTable"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Sistema de Análisis de Facturación Médica v1.0 | Desarrollado con ❤️ para optimizar análisis de datos</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

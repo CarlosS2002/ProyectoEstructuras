@@ -1,0 +1,12 @@
+# No subir archivos de Python
+*.pyc
+__pycache__/
+*.py
+
+# No subir archivos del sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# No subir dependencias de node si las hay
+node_modules/

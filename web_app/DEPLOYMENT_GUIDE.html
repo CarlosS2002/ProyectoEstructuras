@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Deployment - Análisis Facturación Médica</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f8fafc;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #7c3aed;
+            margin-top: 30px;
+        }
+        .method {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #10b981;
+        }
+        .method h3 {
+            color: #10b981;
+            margin-top: 0;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e11d48;
+        }
+        pre {
+            background: #1e293b;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .step {
+            background: #f8fafc;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-left: 3px solid #2563eb;
+        }
+        .note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Guía Completa de Deployment</h1>
+    <p><strong>Sistema de Análisis de Facturación Médica</strong></p>
+
+    <div class="note">
+        <strong>📝 Nota:</strong> Todos estos métodos son GRATUITOS y no requieren configuración de servidor.
+        La aplicación es 100% cliente-side (frontend only).
+    </div>
+
+    <h2>📦 Archivos Necesarios</h2>
+    <p>Tu carpeta <code>web_app</code> ya contiene todo lo necesario:</p>
+    <ul>
+        <li>✅ <code>index.html</code> - Página principal</li>
+        <li>✅ <code>styles.css</code> - Estilos</li>
+        <li>✅ <code>app.js</code> - Lógica de análisis</li>
+        <li>✅ <code>netlify.toml</code> - Config Netlify</li>
+        <li>✅ <code>vercel.json</code> - Config Vercel</li>
+        <li>✅ <code>package.json</code> - Metadatos</li>
+    </ul>
+
+    <h2>🌟 Método 1: Netlify (Más Fácil)</h2>
+    <div class="method">
+        <h3>Opción A: Drag & Drop (Sin código)</h3>
+        <div class="step">
+            <strong>Paso 1:</strong> Ve a <a href="https://app.netlify.com/drop" target="_blank">https://app.netlify.com/drop</a>
+        </div>
+        <div class="step">
+            <strong>Paso 2:</strong> Arrastra la carpeta <code>web_app</code> completa a la página
+        </div>
+        <div class="step">
+            <strong>Paso 3:</strong> ¡Listo! Netlify te dará una URL pública
+        </div>
+        <div class="success">
+            ✅ Tu aplicación estará en línea en menos de 1 minuto en una URL como: <code>https://tu-app-123.netlify.app</code>
+        </div>
+
+        <h3>Opción B: Netlify CLI (Con comandos)</h3>
+        <pre>
+# Instalar Netlify CLI (solo una vez)
+npm install -g netlify-cli
+
+# Navegar a la carpeta
+cd c:\Users\carda\Downloads\ProyectoEstructuras\web_app
+
+# Deploy
+netlify deploy --prod
+
+# Sigue las instrucciones en pantalla
+# Cuando pregunte por el directorio de publicación, escribe: .
+        </pre>
+    </div>
+
+    <h2>⚡ Método 2: Vercel</h2>
+    <div class="method">
+        <h3>Opción A: Vercel Web (Drag & Drop)</h3>
+        <div class="step">
+            <strong>Paso 1:</strong> Crea cuenta en <a href="https://vercel.com" target="_blank">vercel.com</a>
+        </div>
+        <div class="step">
+            <strong>Paso 2:</strong> Click en "Add New..." → "Project"
+        </div>
+        <div class="step">
+            <strong>Paso 3:</strong> Arrastra la carpeta <code>web_app</code>
+        </div>
+        <div class="step">
+            <strong>Paso 4:</strong> Click en "Deploy"
+        </div>
+
+        <h3>Opción B: Vercel CLI</h3>
+        <pre>
+# Instalar Vercel CLI
+npm install -g vercel
+
+# Navegar a la carpeta
+cd c:\Users\carda\Downloads\ProyectoEstructuras\web_app
+
+# Deploy
+vercel
+
+# Seguir instrucciones. Para producción:
+vercel --prod
+        </pre>
+    </div>
+
+    <h2>🐙 Método 3: GitHub Pages</h2>
+    <div class="method">
+        <div class="step">
+            <strong>Paso 1:</strong> Crea un repositorio en GitHub
+        </div>
+        <div class="step">
+            <strong>Paso 2:</strong> Sube los archivos de <code>web_app</code>
+        </div>
+        <pre>
+cd c:\Users\carda\Downloads\ProyectoEstructuras\web_app
+git init
+git add .
+git commit -m "Deploy web app"
+git branch -M main
+git remote add origin https://github.com/tu-usuario/tu-repo.git
+git push -u origin main
+        </pre>
+        <div class="step">
+            <strong>Paso 3:</strong> En GitHub, ve a Settings → Pages
+        </div>
+        <div class="step">
+            <strong>Paso 4:</strong> Source: "Deploy from branch"
+        </div>
+        <div class="step">
+            <strong>Paso 5:</strong> Branch: <code>main</code>, Folder: <code>/ (root)</code>
+        </div>
+        <div class="step">
+            <strong>Paso 6:</strong> Click "Save"
+        </div>
+        <div class="success">
+            Tu app estará en: <code>https://tu-usuario.github.io/tu-repo</code>
+        </div>
+    </div>
+
+    <h2>☁️ Método 4: Azure Static Web Apps</h2>
+    <div class="method">
+        <div class="step">
+            <strong>Paso 1:</strong> Cuenta en <a href="https://portal.azure.com" target="_blank">portal.azure.com</a>
+        </div>
+        <div class="step">
+            <strong>Paso 2:</strong> Busca "Static Web Apps" y crea uno nuevo
+        </div>
+        <div class="step">
+            <strong>Paso 3:</strong> Conecta tu GitHub o sube manualmente
+        </div>
+        <div class="step">
+            <strong>Paso 4:</strong> Build Presets: "Custom"
+        </div>
+        <div class="step">
+            <strong>Paso 5:</strong> App location: <code>/</code>
+        </div>
+        <div class="note">
+            Azure te da 100 GB de ancho de banda gratis mensual.
+        </div>
+    </div>
+
+    <h2>💻 Método 5: Prueba Local (Desarrollo)</h2>
+    <div class="method">
+        <h3>Opción A: Doble click</h3>
+        <div class="step">
+            Simplemente abre <code>index.html</code> en tu navegador
+        </div>
+
+        <h3>Opción B: Servidor local (recomendado)</h3>
+        <pre>
+# Con Python (si lo tienes instalado)
+cd c:\Users\carda\Downloads\ProyectoEstructuras\web_app
+python -m http.server 8000
+
+# Con Node.js
+npx http-server
+
+# Con PHP
+php -S localhost:8000
+        </pre>
+        <div class="step">
+            Luego abre: <code>http://localhost:8000</code>
+        </div>
+    </div>
+
+    <h2>✅ Verificación Post-Deployment</h2>
+    <div class="method">
+        <h3>Checklist:</h3>
+        <ul>
+            <li>✅ La página carga correctamente</li>
+            <li>✅ Los estilos se ven bien (colores, diseño)</li>
+            <li>✅ Puedes subir archivos JSON</li>
+            <li>✅ Puedes pegar JSON en los textareas</li>
+            <li>✅ El botón "Analizar Datos" funciona</li>
+            <li>✅ Los gráficos se muestran correctamente</li>
+            <li>✅ Las pestañas funcionan</li>
+            <li>✅ Funciona en móvil</li>
+        </ul>
+    </div>
+
+    <h2>🎯 Recomendación Final</h2>
+    <div class="success">
+        <strong>Para uso inmediato:</strong> Usa <strong>Netlify Drop</strong> (Método 1, Opción A)<br>
+        <strong>Para producción:</strong> Usa <strong>Netlify CLI</strong> o <strong>Vercel</strong><br>
+        <strong>Para colaboración:</strong> Usa <strong>GitHub Pages</strong>
+    </div>
+
+    <h2>📱 Compartir tu Aplicación</h2>
+    <div class="method">
+        <p>Una vez deployada, simplemente comparte la URL que te dieron:</p>
+        <ul>
+            <li>Netlify: <code>https://tu-app.netlify.app</code></li>
+            <li>Vercel: <code>https://tu-app.vercel.app</code></li>
+            <li>GitHub Pages: <code>https://usuario.github.io/repo</code></li>
+            <li>Azure: <code>https://tu-app.azurestaticapps.net</code></li>
+        </ul>
+        <p><strong>¡No necesitas instalar nada en las computadoras de los usuarios!</strong></p>
+    </div>
+
+    <h2>🆘 Solución de Problemas</h2>
+    <div class="method">
+        <h3>Error: "Chart is not defined"</h3>
+        <p>Verifica que Chart.js se esté cargando desde el CDN. Revisa la consola del navegador.</p>
+
+        <h3>Error: "Failed to parse JSON"</h3>
+        <p>Asegúrate de que el JSON esté bien formateado (válido).</p>
+
+        <h3>Los gráficos no se muestran</h3>
+        <p>Verifica que Chart.js esté cargado y que haya datos válidos.</p>
+
+        <h3>Estilos no se aplican</h3>
+        <p>Verifica que <code>styles.css</code> esté en la misma carpeta que <code>index.html</code>.</p>
+    </div>
+
+    <div class="note">
+        <strong>💡 Tip Pro:</strong> Puedes personalizar el dominio en Netlify/Vercel comprando uno
+        o conectando un dominio que ya tengas. Ejemplo: <code>analisis.tuempresa.com</code>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding: 20px; background: white; border-radius: 10px;">
+        <h3>🎉 ¡Todo listo para deployar!</h3>
+        <p>Elige tu método favorito y comparte tu aplicación con el mundo.</p>
+        <p style="color: #64748b; font-size: 0.9rem;">
+            Desarrollado con ❤️ para facilitar el análisis de datos médicos
+        </p>
+    </div>
+
+</body>
+</html>

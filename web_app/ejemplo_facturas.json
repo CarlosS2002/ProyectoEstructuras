@@ -1,0 +1,67 @@
+{
+  "success": true,
+  "msg": "Datos de ejemplo",
+  "datos": [
+    {
+      "episodio": "0008017558",
+      "nrO_FACTURA": "6801303112",
+      "fechA_FACTURA": "2025-07-05T00:00:00",
+      "centrO_SANITARIO": "1000",
+      "prestaciones": [
+        {
+          "coD_PRESTACION": "890201",
+          "noM_PRESTACION": "Consulta Urgencias",
+          "fechA_PRESTACION": "2025-07-05",
+          "tipO_PRESTACION": "Consulta",
+          "nrO_PRESTACION": "1",
+          "tipO_FACTURACION": "Servicio",
+          "valoR_NETO": "24400.00"
+        },
+        {
+          "coD_PRESTACION": "890305",
+          "noM_PRESTACION": "Medicamentos Basicos",
+          "fechA_PRESTACION": "2025-07-05",
+          "tipO_PRESTACION": "Medicamentos",
+          "nrO_PRESTACION": "1",
+          "tipO_FACTURACION": "Suministro",
+          "valoR_NETO": "12360.00"
+        },
+        {
+          "coD_PRESTACION": "890401",
+          "noM_PRESTACION": "Laboratorio Hemograma",
+          "fechA_PRESTACION": "2025-07-05",
+          "tipO_PRESTACION": "Laboratorio",
+          "nrO_PRESTACION": "1",
+          "tipO_FACTURACION": "Diagnostico",
+          "valoR_NETO": "25350.00"
+        }
+      ]
+    },
+    {
+      "episodio": "0008018967",
+      "nrO_FACTURA": "6801303159",
+      "fechA_FACTURA": "2025-07-05T00:00:00",
+      "centrO_SANITARIO": "1000",
+      "prestaciones": [
+        {
+          "coD_PRESTACION": "890501",
+          "noM_PRESTACION": "Radiografia Torax",
+          "fechA_PRESTACION": "2025-07-05",
+          "tipO_PRESTACION": "Imagenologia",
+          "nrO_PRESTACION": "1",
+          "tipO_FACTURACION": "Diagnostico",
+          "valoR_NETO": "13940.00"
+        },
+        {
+          "coD_PRESTACION": "890201",
+          "noM_PRESTACION": "Consulta Medicina General",
+          "fechA_PRESTACION": "2025-07-05",
+          "tipO_PRESTACION": "Consulta",
+          "nrO_PRESTACION": "1",
+          "tipO_FACTURACION": "Servicio",
+          "valoR_NETO": "8430.00"
+        }
+      ]
+    }
+  ]
+}

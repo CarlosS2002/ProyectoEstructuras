@@ -1,0 +1,19 @@
+{
+  "name": "analisis-facturacion-medica",
+  "version": "1.0.0",
+  "description": "Sistema web interactivo para análisis de datos de facturación médica",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "facturacion",
+    "medica",
+    "analisis",
+    "datos",
+    "healthcare"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT"
+}

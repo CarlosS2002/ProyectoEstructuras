@@ -1,0 +1,60 @@
+{
+  "success": true,
+  "msg": "Datos de ejemplo",
+  "datos": [
+    {
+      "centrO_SANITARIO": "1000",
+      "episodio": "0008017558",
+      "clasE_EPISODIO": "2",
+      "doC_PACIENTE": "7589711",
+      "staT_FACTURA": "2",
+      "fechA_CREACION": "20250705",
+      "estadO_EPISODIO": "",
+      "fechA_ANULACION": null,
+      "fechA_INICIO": "20250705",
+      "noM_PACIENTE": "FERNANDEZ DORYS",
+      "aseguradora": "NUEVA EPS SA CONTRIBUTIVO",
+      "codigO_ASEGURADORA": "0020001189",
+      "horA_CREACION": "06:35:20",
+      "uO_MEDICA": "1MAPOYOS",
+      "uO_TRATAMI": "1TESCAN3",
+      "movimiento": "H5"
+    },
+    {
+      "centrO_SANITARIO": "1000",
+      "episodio": "0008018967",
+      "clasE_EPISODIO": "1",
+      "doC_PACIENTE": "6186076",
+      "staT_FACTURA": "2",
+      "fechA_CREACION": "20250705",
+      "estadO_EPISODIO": "",
+      "fechA_ANULACION": null,
+      "fechA_INICIO": "20250705",
+      "noM_PACIENTE": "SAAVEDRA MARCO",
+      "aseguradora": "SANITAS EPS",
+      "codigO_ASEGURADORA": "0020009863",
+      "horA_CREACION": "06:38:53",
+      "uO_MEDICA": "1MAPOYOS",
+      "uO_TRATAMI": "1TINSCO3",
+      "movimiento": "H5"
+    },
+    {
+      "centrO_SANITARIO": "1000",
+      "episodio": "0008034515",
+      "clasE_EPISODIO": "2",
+      "doC_PACIENTE": "88287274",
+      "staT_FACTURA": "1",
+      "fechA_CREACION": "20250705",
+      "estadO_EPISODIO": "",
+      "fechA_ANULACION": null,
+      "fechA_INICIO": "20250705",
+      "noM_PACIENTE": "CAÑIZAREZ LUIS",
+      "aseguradora": "SURA EPS",
+      "codigO_ASEGURADORA": "0020001967",
+      "horA_CREACION": "06:45:30",
+      "uO_MEDICA": "1MAPOYOS",
+      "uO_TRATAMI": "1TLABHE3",
+      "movimiento": "H5"
+    }
+  ]
+}
